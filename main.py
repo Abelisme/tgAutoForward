@@ -3,8 +3,8 @@ import asyncio, datetime
 
 # These example values won't work. You must get your own api_id and
 # api_hash from https://my.telegram.org, under API Development.
-api_id = 0
-api_hash = ''
+api_id = 4190078
+api_hash = '1b8b4ebef76ebd1a2f469884694d2940'
 #init
 client = TelegramClient('session_name', api_id, api_hash)
 client.start()
@@ -23,13 +23,11 @@ async def main():
     # reverse = True -> From oldest to most-recent
     async for message in client.iter_messages(channel_records, offset_date = date_of_post, reverse = True):
         #Filter message by sender_id
-        if (str(message.sender_id) == "521521130" or 
-        str(message.sender_id) == "1104929860" or
-        str(message.sender_id) == "1056919703"):
-            #  print(str(message.sender_id) + '->' + str(message.text))
-             #forward_messages to privet group
-             us_backup_group = 'https://t.me/joinchat/-o6RjFkK6FxkZDFl'
-             await client.forward_messages(entity= us_backup_group, messages = message)
+        if (message.sender_id in [521521130, 1104929860, 1056919703]):
+            # print(str(message.sender_id) + '->' + str(message.text))
+            # forward_messages to privet group
+            us_backup_group = 'https://t.me/joinchat/-o6RjFkK6FxkZDFl'
+            await client.forward_messages(entity= us_backup_group, messages = message)
 
         # SOLUSUTION 2
         # if (str(message.from_id).replace("PeerUser(user_id=", "").replace(")", "") == "521521130"):
